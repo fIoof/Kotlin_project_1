@@ -19,7 +19,7 @@ fun main() {
             "1" -> {
                 println("Enter Task name: ")
                 val title = readLine()?.trim() ?: ""
-                if(!title.isNullOrEmpty()) {
+                if(title.isNotBlank()) {
                     val task = taskService.addTask(title)
                     println("Task Added: $task")
                 } else {
@@ -38,6 +38,8 @@ fun main() {
                     val success = taskService.completeTask(id)
                     if (success) {
                         println("Complete")
+                    } else {
+                        println("Task not found.")
                     }
                 }
             }

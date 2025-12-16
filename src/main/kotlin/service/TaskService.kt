@@ -15,11 +15,11 @@ class TaskService {
         return tasks
     }
     fun completeTask(id: Int): Boolean {
-        val index = tasks.indexOfFirst { it.id == id }
-        if (index == -1) return false
-
-        val task = tasks[index]
-        tasks[index] = task.copy(isCompleted = true)
+        if (id <= 0) return false
+        val task = tasks.firstOrNull { it.id == id } ?: return false
+        if (task.isCompleted) return false
+        val updated = task.copy(isCompleted = true)
+        tasks.replaceAll { if (it.id == id) updated else it }
         return true
     }
     fun printTasks(tasks: List<model.Task>) {
