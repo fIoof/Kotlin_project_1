@@ -14,7 +14,29 @@ fun main() {
             4. Exit
             """
         )
-        
+        print("Choose an Option: ")
+        when (readLine()?.trim()) {
+            "1" -> {
+                print("Enter Task name: ")
+                val title = readLine()?.trim() ?: ""
+                if(!title.isNullOrEmpty()) {
+                    val task = taskService.addTask(title)
+                    println("Task Added: $task")
+                } else {
+                    println("Task title cannot be empty.")
+                }
+            }
+            "2" -> {
+
+            }
+            "3" -> {
+
+            }
+            "4" -> {
+
+            }
+        }
+
     }
 
 }
