@@ -7,17 +7,29 @@ class TaskService {
     private var nextId = 1
 
     fun addTask(title: String): Task {
-        tasks.add(Task(id = nextId++, title = title))
+        val newTask = Task(id = nextId++, title = title)
+        tasks.add(newTask)
+        return newTask
     }
     fun getAllTasks(): List<Task> {
         return tasks
     }
     fun completeTask(id: Int): Boolean {
-        val index = tasks.indexOfFirst { it.id == id }
-        if (index != -1) return false
-
-        val task = tasks[index]
-        tasks[index] = task.copy(isCompleted = true)
+        if (id <= 0) return false
+        val task = tasks.firstOrNull { it.id == id } ?: return false
+        if (task.isCompleted) return false
+        val updated = task.copy(isCompleted = true)
+        tasks.replaceAll { if (it.id == id) updated else it }
         return true
+    }
+    fun printTasks(tasks: List<model.Task>) {
+        if (tasks.isEmpty()) {
+            println("No tasks available.")
+            return
+        }
+        tasks.forEach { task ->
+            println("ID: ${task.id}, Title: ${task.title}, Completed?: ${task.isCompleted}") 
+        }
+
     }
 }
